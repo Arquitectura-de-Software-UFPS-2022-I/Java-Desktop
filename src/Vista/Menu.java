@@ -122,6 +122,7 @@ public class Menu extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         btnAddRequest = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -302,7 +303,7 @@ public class Menu extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jTabbedPane5.addTab("Usuario", jPanel2);
+        jTabbedPane5.addTab("Inicio", jPanel2);
 
         btnAddRequest.setText("Add Request");
         btnAddRequest.addActionListener(new java.awt.event.ActionListener() {
@@ -327,7 +328,7 @@ public class Menu extends javax.swing.JFrame {
                 .addContainerGap(381, Short.MAX_VALUE))
         );
 
-        jTabbedPane5.addTab("Documentos", jPanel3);
+        jTabbedPane5.addTab("Solicitudes Enviadas", jPanel3);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -340,7 +341,20 @@ public class Menu extends javax.swing.JFrame {
             .addGap(0, 405, Short.MAX_VALUE)
         );
 
-        jTabbedPane5.addTab("Otros", jPanel4);
+        jTabbedPane5.addTab("Solicitudes Pendientes", jPanel4);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 803, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 415, Short.MAX_VALUE)
+        );
+
+        jTabbedPane5.addTab("Solicitudes Respondidas", jPanel1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -426,6 +440,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
