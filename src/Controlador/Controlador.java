@@ -92,10 +92,11 @@ public class Controlador {
         //UserDto u = c.x.getUserId(17);
         //System.out.print(u.getEmail() + " " + u.getFull_name());
         
-        UserDto u = c.login("123456", "pino");
+        //UserDto u = c.login("123456", "pino");
         //System.out.print(u.getSignature());
-        FileDto fd = c.y.getFileId(u.getSignature());
-        System.out.println(fd);
+        //FileDto fd = c.y.getFileId(u.getSignature());
+        //System.out.println(fd);
+        UserDto u = c.x.getUserId(27);
     }
     */
 }

@@ -41,8 +41,14 @@ public class AsignatureRequestForm extends javax.swing.JFrame {
     public AsignatureRequestForm(UserDto userCurrent) {
         this.userCurrent = userCurrent;
         initComponents();
+        
+        
+        this.setVisible(true);
+        this.setTitle("Java_Escritorio");
         this.setResizable(false);
         this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        
         try {
             this.users = apiService.getUserService().getUser();
             for (UserDto user : users) {
