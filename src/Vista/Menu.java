@@ -5,6 +5,15 @@
  */
 package Vista;
 
+import Controlador.Controlador;
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import models.UserDto;
 
 /**
@@ -16,12 +25,14 @@ public class Menu extends javax.swing.JFrame {
     /**
      * Creates new form Menu
      */
+    private File imagen;
     UserDto u;
-    
+    Controlador c = new Controlador();
+
     public Menu() {
         initComponents();
     }
-    
+
     public Menu(UserDto x) {
         initComponents();
         this.setVisible(true);
@@ -32,12 +43,30 @@ public class Menu extends javax.swing.JFrame {
         this.u = x;
         dibujar();
     }
-    
-    public void dibujar(){
+
+    public void dibujar() {
         jtNombre.setText(u.getFull_name());
         jtEmail.setText(u.getEmail());
-        jtID.setText(u.getId()+"");
+        jtID.setText(u.getId() + "");
         jtUsuario.setText(u.getUsername());
+        jbGuardarImg.setEnabled(false);
+    }
+
+    private void cargarImg(String dato) {
+        ImageIcon img = new ImageIcon(dato);
+        Icon i = new ImageIcon(img.getImage().getScaledInstance(jlImg.getWidth(), jlImg.getHeight(), Image.SCALE_DEFAULT));
+        jlImg.setIcon(i);
+        this.repaint();
+    }
+
+    private void abrirImagen() {
+        JFileChooser file = new JFileChooser();
+        if (file.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+            this.imagen = file.getSelectedFile();
+            cargarImg(file.getSelectedFile().getPath());
+            jtxtUrl.setText(file.getSelectedFile().getPath());
+            jbGuardarImg.setEnabled(true);
+        }
     }
 
     /**
@@ -61,8 +90,12 @@ public class Menu extends javax.swing.JFrame {
         jtUsuario = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jtID = new javax.swing.JTextField();
-        jPanel1 = new javax.swing.JPanel();
+        jpImg = new javax.swing.JPanel();
+        jlImg = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
+        jtxtUrl = new javax.swing.JTextField();
+        jbCargarImg = new javax.swing.JButton();
+        jbGuardarImg = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
 
@@ -149,30 +182,68 @@ public class Menu extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 204), 3));
+        jpImg.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 204), 3));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 383, Short.MAX_VALUE)
+        javax.swing.GroupLayout jpImgLayout = new javax.swing.GroupLayout(jpImg);
+        jpImg.setLayout(jpImgLayout);
+        jpImgLayout.setHorizontalGroup(
+            jpImgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpImgLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jlImg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 232, Short.MAX_VALUE)
+        jpImgLayout.setVerticalGroup(
+            jpImgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jpImgLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jlImg, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jPanel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 153, 204), 2));
+
+        jtxtUrl.setEditable(false);
+
+        jbCargarImg.setText("...");
+        jbCargarImg.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbCargarImgActionPerformed(evt);
+            }
+        });
+
+        jbGuardarImg.setText("Guardar");
+        jbGuardarImg.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbGuardarImgActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(81, 81, 81)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jtxtUrl, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(58, 58, 58)
+                        .addComponent(jbGuardarImg, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jbCargarImg, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(77, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 140, Short.MAX_VALUE)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jtxtUrl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jbCargarImg))
+                .addGap(18, 18, 18)
+                .addComponent(jbGuardarImg, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -184,7 +255,7 @@ public class Menu extends javax.swing.JFrame {
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jpImg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -195,7 +266,7 @@ public class Menu extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jpImg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -211,7 +282,7 @@ public class Menu extends javax.swing.JFrame {
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 404, Short.MAX_VALUE)
         );
 
         jTabbedPane5.addTab("Documentos", jPanel3);
@@ -224,7 +295,7 @@ public class Menu extends javax.swing.JFrame {
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 404, Short.MAX_VALUE)
         );
 
         jTabbedPane5.addTab("Otros", jPanel4);
@@ -247,10 +318,22 @@ public class Menu extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jtUsuarioActionPerformed
 
+    private void jbCargarImgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCargarImgActionPerformed
+        // TODO add your handling code here:
+        this.abrirImagen();
+    }//GEN-LAST:event_jbCargarImgActionPerformed
+
+    private void jbGuardarImgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarImgActionPerformed
+        try {
+            // TODO add your handling code here:
+            c.Firma(imagen);
+        } catch (IOException ex) {
+        }
+    }//GEN-LAST:event_jbGuardarImgActionPerformed
+
     /**
      * @param args the command line arguments
      */
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
@@ -258,16 +341,21 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JTabbedPane jTabbedPane5;
+    private javax.swing.JButton jbCargarImg;
+    private javax.swing.JButton jbGuardarImg;
+    private javax.swing.JLabel jlImg;
+    private javax.swing.JPanel jpImg;
     private javax.swing.JTextField jtEmail;
     private javax.swing.JTextField jtID;
     private javax.swing.JTextField jtNombre;
     private javax.swing.JTextField jtUsuario;
+    private javax.swing.JTextField jtxtUrl;
     // End of variables declaration//GEN-END:variables
+
 }

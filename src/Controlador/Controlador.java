@@ -5,8 +5,10 @@
  */
 package Controlador;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.util.Base64;
 import models.UserDto;
 import services.impl.UserServiceImpl;
 
@@ -43,6 +45,13 @@ public class Controlador {
         } catch (Exception ex) {
             return null;
         }
+    }
+    
+    public void Firma(File imagen) throws IOException{
+        byte[] fileContent = Files.readAllBytes(imagen.toPath());
+        String datosImagen = Base64.getEncoder().encodeToString(fileContent);
+        
+        
     }
     
     /*
