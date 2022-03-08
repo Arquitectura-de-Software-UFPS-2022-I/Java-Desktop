@@ -120,6 +120,7 @@ public class Menu extends javax.swing.JFrame {
         jbCargarImg = new javax.swing.JButton();
         jbGuardarImg = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
+        btnAddRequest = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -303,15 +304,27 @@ public class Menu extends javax.swing.JFrame {
 
         jTabbedPane5.addTab("Usuario", jPanel2);
 
+        btnAddRequest.setText("Add Request");
+        btnAddRequest.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddRequestActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 795, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(btnAddRequest)
+                .addGap(0, 708, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 405, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnAddRequest)
+                .addContainerGap(381, Short.MAX_VALUE))
         );
 
         jTabbedPane5.addTab("Documentos", jPanel3);
@@ -396,11 +409,18 @@ public class Menu extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jbModificarDatosActionPerformed
 
+    private void btnAddRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddRequestActionPerformed
+        dispose();
+        AsignatureRequestForm r = new AsignatureRequestForm(this.u);
+        r.setVisible(true);
+    }//GEN-LAST:event_btnAddRequestActionPerformed
+
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAddRequest;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

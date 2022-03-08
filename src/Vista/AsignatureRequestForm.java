@@ -29,6 +29,7 @@ import utils.ComboItem;
 public class AsignatureRequestForm extends javax.swing.JFrame {
 
     private List<UserDto> users;
+    private final UserDto userCurrent;
     private List<ComboItem> usersRecipients = new ArrayList<>();
     private File document = null;
     
@@ -37,8 +38,11 @@ public class AsignatureRequestForm extends javax.swing.JFrame {
     /**
      * Creates new form AsignatureRequestForm
      */
-    public AsignatureRequestForm() {
+    public AsignatureRequestForm(UserDto userCurrent) {
+        this.userCurrent = userCurrent;
         initComponents();
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
         try {
             this.users = apiService.getUserService().getUser();
             for (UserDto user : users) {
@@ -221,6 +225,7 @@ public class AsignatureRequestForm extends javax.swing.JFrame {
 
     private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
         this.dispose();
+        new Menu(this.userCurrent).setVisible(true);
     }//GEN-LAST:event_btnCloseActionPerformed
 
     private void btnAddUsersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddUsersActionPerformed
@@ -256,7 +261,7 @@ public class AsignatureRequestForm extends javax.swing.JFrame {
             SignatureRequestDto signature = new SignatureRequestDto();
             signature.setDocument(file.getId());
             signature.setSubject(txtSubject.getText());
-            signature.setUser(2);
+            signature.setUser(userCurrent.getId());
             
             signature = apiService.getSignatureRequestService().saveRequest(signature);
             SignatureRequestUserDto signatureUser; 
@@ -280,41 +285,6 @@ public class AsignatureRequestForm extends javax.swing.JFrame {
         textUsers = usersRecipients.stream().map((usersRecipient) -> usersRecipient.toString() + "\n").reduce(textUsers, String::concat);
         this.textListUsers.setText(textUsers);
         this.lblCount.setText("Count: "+ usersRecipients.size());
-    }
-    
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AsignatureRequestForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AsignatureRequestForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AsignatureRequestForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AsignatureRequestForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new AsignatureRequestForm().setVisible(true);
-            }
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
