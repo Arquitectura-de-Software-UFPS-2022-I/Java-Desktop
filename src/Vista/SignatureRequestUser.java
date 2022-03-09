@@ -5,10 +5,12 @@
  */
 package Vista;
 
+import utils.SignatureRequestUserModel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import models.SignatureRequestUserDto;
 import models.UserDto;
@@ -25,6 +27,7 @@ public final class SignatureRequestUser extends javax.swing.JPanel {
     List<SignatureRequestUserDto> listRequestUserFilter;
     SignatureRequestUserDto requestUser;
     ApiService apiService = new ApiService();
+    int[][] dimensions = null;
 
     /**
      * Creates new form SignatureRequestUser
@@ -70,6 +73,9 @@ public final class SignatureRequestUser extends javax.swing.JPanel {
         comboFilter = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         txtNumPage = new javax.swing.JTextField();
+        lblMaxAxisY = new javax.swing.JLabel();
+        lblMaxAxisX = new javax.swing.JLabel();
+        lblMaxPage = new javax.swing.JLabel();
 
         table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -83,6 +89,11 @@ public final class SignatureRequestUser extends javax.swing.JPanel {
 
         btnDownload.setText("Download");
         btnDownload.setEnabled(false);
+        btnDownload.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDownloadActionPerformed(evt);
+            }
+        });
 
         btnSing.setText("Sing");
         btnSing.setEnabled(false);
@@ -118,6 +129,17 @@ public final class SignatureRequestUser extends javax.swing.JPanel {
         jLabel5.setText("Num page");
 
         txtNumPage.setText("1");
+        txtNumPage.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtNumPageFocusLost(evt);
+            }
+        });
+
+        lblMaxAxisY.setText("Max: 0");
+
+        lblMaxAxisX.setText("Max: 0");
+
+        lblMaxPage.setText("Max: 0");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -133,24 +155,33 @@ public final class SignatureRequestUser extends javax.swing.JPanel {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 573, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtNumPage)
+                            .addComponent(txtPosX)
+                            .addComponent(txtId)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblMaxAxisY))
+                            .addComponent(txtPosY)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblMaxPage))))
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(38, 38, 38)
                         .addComponent(btnSing)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnDownload)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 14, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtNumPage, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
-                            .addComponent(txtPosX)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(txtId)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
-                                .addComponent(jLabel2)
-                                .addComponent(jLabel3)
-                                .addComponent(txtPosY))
-                            .addComponent(jLabel5))
-                        .addContainerGap())))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblMaxAxisX)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -162,28 +193,32 @@ public final class SignatureRequestUser extends javax.swing.JPanel {
                     .addComponent(comboFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(26, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(5, 5, 5)
-                        .addComponent(jLabel2)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(lblMaxPage))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtPosX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtNumPage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(11, 11, 11)
-                        .addComponent(jLabel3)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(lblMaxAxisY))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtPosY, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel5)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblMaxAxisX)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtNumPage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtPosX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(23, 23, 23)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnSing)
-                            .addComponent(btnDownload))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(btnDownload))))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -196,17 +231,41 @@ public final class SignatureRequestUser extends javax.swing.JPanel {
         try {
             if (!txtPosX.getText().matches("\\d+")) {
                 JOptionPane.showMessageDialog(this, "non-numeric x-axis", "Form Invalid", JOptionPane.ERROR_MESSAGE);
+                return;
             }
             if (!txtPosY.getText().matches("\\d+")) {
                 JOptionPane.showMessageDialog(this, "non-numeric y-axis", "Form Invalid", JOptionPane.ERROR_MESSAGE);
+                return;
             }
             if (!txtNumPage.getText().matches("\\d+")) {
                 JOptionPane.showMessageDialog(this, "non-numeric page number", "Form Invalid", JOptionPane.ERROR_MESSAGE);
+                return;
             }
-
-            requestUser.setPos_x(Integer.parseInt(txtPosX.getText()));
-            requestUser.setPos_y(Integer.parseInt(txtPosY.getText()));
-            requestUser.setNum_page(Integer.parseInt(txtNumPage.getText()));
+            int posx = Integer.parseInt(txtPosX.getText());
+            int posy = Integer.parseInt(txtPosY.getText());
+            int numPage = Integer.parseInt(txtNumPage.getText());
+            
+            if (numPage > this.dimensions.length) {
+                JOptionPane.showMessageDialog(this, "Page number greater than maximum", "Form Invalid", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (numPage <= 0) {
+                JOptionPane.showMessageDialog(this, "Page number invalid", "Form Invalid", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (posx > this.dimensions[numPage-1][0]) {
+                JOptionPane.showMessageDialog(this, "X-axis greater than maximum", "Form Invalid", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (posy > this.dimensions[numPage-1][1]) {
+                JOptionPane.showMessageDialog(this, "Y-axis greater than maximum", "Form Invalid", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            
+            requestUser.setPos_x(posx);
+            requestUser.setPos_y(posy);
+            requestUser.setNum_page(numPage);
+            
             requestUser.setSigned(true);
 
             apiService.getSignatureRequestUser().updateRequest(requestUser);
@@ -218,6 +277,37 @@ public final class SignatureRequestUser extends javax.swing.JPanel {
         }
 
     }//GEN-LAST:event_btnSingActionPerformed
+
+    private void txtNumPageFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNumPageFocusLost
+        int numPage = 0;
+        if (txtNumPage.getText().matches("\\d+")) {
+            numPage = Integer.parseInt(this.txtNumPage.getText());
+        }
+        if (dimensions != null && numPage > 0 && numPage <= dimensions.length) {
+            lblMaxAxisX.setText("Max:" + dimensions[numPage-1][0]);
+            lblMaxAxisY.setText("Max:" + dimensions[numPage-1][1]);
+        } else {
+            lblMaxAxisX.setText("Max:-");
+            lblMaxAxisY.setText("Max:-");            
+        }
+    }//GEN-LAST:event_txtNumPageFocusLost
+
+    private void btnDownloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDownloadActionPerformed
+        JFileChooser chooser = new JFileChooser();
+        chooser.setCurrentDirectory(new java.io.File("."));
+        chooser.setDialogTitle("Select Folder");
+        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        
+        chooser.setAcceptAllFileFilterUsed(false);
+        //
+        if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION && this.requestUser != null) {
+            try {
+                String dir = chooser.getSelectedFile().toString();
+                apiService.getFileService().downloadFileSigned(dir, this.requestUser.getRequest());
+            } catch (Exception ex) {                
+            }
+        }  
+    }//GEN-LAST:event_btnDownloadActionPerformed
 
     void searchData() {
         try {
@@ -246,14 +336,18 @@ public final class SignatureRequestUser extends javax.swing.JPanel {
 
     void showRequestUser() {
         this.btnDownload.setEnabled(true);
-        if (this.requestUser.isSigned()) {
-            this.btnSing.setEnabled(false);
-        } else {
-            this.btnSing.setEnabled(true);
-        }
+        this.btnSing.setEnabled(true);
         txtId.setText(this.requestUser.getId() + "");
         txtPosX.setText(this.requestUser.getPos_x() + "");
         txtPosY.setText(this.requestUser.getPos_y() + "");
+        int numPage = this.requestUser.getNum_page() != 0 ? this.requestUser.getNum_page() : 1;
+        txtNumPage.setText(numPage + "");
+        this.dimensions = this.requestUser.getRequestDto().getDocumentDto().getDimensionsPdf();
+        if (dimensions != null && numPage > 0 && numPage <= dimensions.length) {
+            lblMaxPage.setText("Max:" + dimensions.length);
+            lblMaxAxisX.setText("Max:" + dimensions[numPage-1][0]);
+            lblMaxAxisY.setText("Max:" + dimensions[numPage-1][1]);
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -266,6 +360,9 @@ public final class SignatureRequestUser extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblMaxAxisX;
+    private javax.swing.JLabel lblMaxAxisY;
+    private javax.swing.JLabel lblMaxPage;
     private javax.swing.JTable table;
     private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtNumPage;

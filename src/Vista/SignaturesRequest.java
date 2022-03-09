@@ -5,6 +5,8 @@
  */
 package Vista;
 
+import utils.SignatureRequestUserModel;
+import utils.SignatureRequestModel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.FileOutputStream;

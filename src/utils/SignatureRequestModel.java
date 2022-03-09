@@ -3,25 +3,24 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Vista;
+package utils;
 
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import models.SignatureRequestDto;
-import models.SignatureRequestUserDto;
 
 /**
  *
  * @author USUARIO
  */
-public class SignatureRequestUserModel extends AbstractTableModel {
+public class SignatureRequestModel extends AbstractTableModel {
 
-    protected List<SignatureRequestUserDto> requests;
+    protected List<SignatureRequestDto> requests;
 
-    private final String[] columnNames = {"ID", "User", "Signed", "Signed Date", "Create Date"};
-    private final Class[] columnClasses = {Integer.class, String.class, String.class, String.class, String.class};
+    private final String[] columnNames = {"ID", "Subject", "Create Date"};
+    private final Class[] columnClasses = {Integer.class, String.class, String.class};
 
-    public SignatureRequestUserModel(List<SignatureRequestUserDto> requests) {
+    public SignatureRequestModel(List<SignatureRequestDto> requests) {
         this.requests = requests;
     }
 
@@ -37,18 +36,14 @@ public class SignatureRequestUserModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        SignatureRequestUserDto usuario = this.requests.get(rowIndex);
+        SignatureRequestDto usuario = this.requests.get(rowIndex);
         switch (columnIndex) {
             case 0:
                 return usuario.getId();
             case 1:
-                return usuario.getUserDto().getFull_name();
+                return usuario.getSubject();
             case 2:
-                return usuario.isSigned()?"SI":"NO";
-            case 3:
-                return usuario.getSignature_date();
-            case 4:
-                return usuario.getCreated_date();
+                return usuario.getCreate_date();
         }
         return ("");
 
