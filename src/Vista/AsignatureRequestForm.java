@@ -278,7 +278,7 @@ public class AsignatureRequestForm extends javax.swing.JFrame {
                 
                 apiService.getSignatureRequestUser().saveRequest(signatureUser);
             }
-            JOptionPane.showMessageDialog(this, "Subject document", "Form Send", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Request sent", "OK", JOptionPane.INFORMATION_MESSAGE);
             
         } catch(Exception e) {
             e.printStackTrace();

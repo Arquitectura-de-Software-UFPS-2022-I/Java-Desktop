@@ -220,12 +220,8 @@ public class SignaturesRequest extends javax.swing.JPanel {
         if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION && this.request != null) {
             try {
                 String dir = chooser.getSelectedFile().toString();
-                URL website = new URL(apiService.baseUrl()+"/api/v1/generate_pdf/"+this.request.getId());
-                ReadableByteChannel rbc = Channels.newChannel(website.openStream());
-                FileOutputStream fos = new FileOutputStream(dir+ "/document_"+this.request.getId()+".pdf");
-                fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
-            } catch (MalformedURLException ex) {
-            } catch (IOException ex) {                
+                apiService.getFileService().downloadFileSigned(dir, this.request.getId());
+            } catch (Exception ex) {                
             }
         }        
     }//GEN-LAST:event_btnDownloadActionPerformed
