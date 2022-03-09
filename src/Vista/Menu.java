@@ -8,10 +8,7 @@ package Vista;
 import Controlador.Controlador;
 import java.awt.Image;
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -40,7 +37,7 @@ public final class Menu extends javax.swing.JFrame {
     public Menu(UserDto x) {
         initComponents();
         this.setVisible(true);
-        this.setTitle("Java_Escritorio");
+        this.setTitle("Java-Desktop");
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -56,8 +53,8 @@ public final class Menu extends javax.swing.JFrame {
 
     void printSignatureRequestPendientes() {
         this.containerP.setViewportView(new SignatureRequestUser(u));
-    }    
-    
+    }
+
     public void dibujar() {
         jtNombre.setText(u.getFull_name());
         jtEmail.setText(u.getEmail());
@@ -66,7 +63,7 @@ public final class Menu extends javax.swing.JFrame {
         jtUsuario.setText(u.getUsername());
         jbGuardarImg.setEnabled(false);
         jpContra.setText(null);
-        
+
         ImgFinal();
     }
 

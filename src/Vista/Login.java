@@ -24,7 +24,7 @@ public class Login extends javax.swing.JFrame {
     public Login() {
         initComponents();
         this.setVisible(true);
-        this.setTitle("Java_Escritorio");
+        this.setTitle("Java-Desktop");
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -51,19 +51,19 @@ public class Login extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jbLogin.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jbLogin.setText("Iniciar Sesion");
+        jbLogin.setText("Log in");
         jbLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbLoginActionPerformed(evt);
             }
         });
 
-        jLabel1.setText("Usuario");
+        jLabel1.setText("Username");
 
-        jLabel2.setText("Contraseña");
+        jLabel2.setText("Password");
 
         jbRegister.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jbRegister.setText("Registrate");
+        jbRegister.setText("Sign up");
         jbRegister.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbRegisterActionPerformed(evt);
@@ -147,7 +147,7 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
         Controlador c = new Controlador();
         try {
-            UserDto u = new ApiService().getUserService().getUserId(2);//c.login(jtxtContra.getText(), jtxtUsuario.getText());
+            UserDto u = c.login(jtxtContra.getText(), jtxtUsuario.getText());
             if (u != null) {
                 Menu m = new Menu(u);
                 m.setVisible(true);
