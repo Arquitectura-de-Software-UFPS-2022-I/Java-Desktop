@@ -8,19 +8,20 @@ package Vista;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import models.SignatureRequestDto;
+import models.SignatureRequestUserDto;
 
 /**
  *
  * @author USUARIO
  */
-public class SignatureRequestModel extends AbstractTableModel {
+public class SignatureRequestUserModel extends AbstractTableModel {
 
-    protected List<SignatureRequestDto> requests;
+    protected List<SignatureRequestUserDto> requests;
 
-    private final String[] columnNames = {"ID", "Subject", "Create Date"};
-    private final Class[] columnClasses = {Integer.class, String.class, String.class};
+    private final String[] columnNames = {"ID", "User", "Signed", "Signed Date", "Create Date"};
+    private final Class[] columnClasses = {Integer.class, String.class, String.class, String.class, String.class};
 
-    public SignatureRequestModel(List<SignatureRequestDto> requests) {
+    public SignatureRequestUserModel(List<SignatureRequestUserDto> requests) {
         this.requests = requests;
     }
 
@@ -36,14 +37,18 @@ public class SignatureRequestModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        SignatureRequestDto usuario = this.requests.get(rowIndex);
+        SignatureRequestUserDto usuario = this.requests.get(rowIndex);
         switch (columnIndex) {
             case 0:
                 return usuario.getId();
             case 1:
-                return usuario.getSubject();
+                return usuario.getUserDto().getFull_name();
             case 2:
-                return usuario.getCreate_date();
+                return usuario.isSigned()?"SI":"NO";
+            case 3:
+                return usuario.getSignature_date();
+            case 4:
+                return usuario.getCreated_date();
         }
         return ("");
 

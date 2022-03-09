@@ -46,8 +46,14 @@ public class Menu extends javax.swing.JFrame {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.u = x;
         dibujar();
+        printSignatureRequestUser();
     }
 
+    void printSignatureRequestUser() {
+        this.scrollPanel.setViewportView(new SignaturesRequest(u));
+    }
+    
+    
     public void dibujar() {
         jtNombre.setText(u.getFull_name());
         jtEmail.setText(u.getEmail());
@@ -121,6 +127,7 @@ public class Menu extends javax.swing.JFrame {
         jbGuardarImg = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         btnAddRequest = new javax.swing.JButton();
+        scrollPanel = new javax.swing.JScrollPane();
         jPanel4 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
 
@@ -317,15 +324,22 @@ public class Menu extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(btnAddRequest)
-                .addGap(0, 708, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(scrollPanel)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(btnAddRequest)
+                        .addGap(0, 688, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnAddRequest)
-                .addContainerGap(381, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jTabbedPane5.addTab("Solicitudes Enviadas", jPanel3);
@@ -458,6 +472,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JTextField jtNombre;
     private javax.swing.JTextField jtUsuario;
     private javax.swing.JTextField jtxtUrl;
+    private javax.swing.JScrollPane scrollPanel;
     // End of variables declaration//GEN-END:variables
 
 }

@@ -7,7 +7,10 @@ package Vista;
 
 import Controlador.Controlador;
 import Vista.Register;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import models.UserDto;
+import services.impl.ApiService;
 
 /**
  *
@@ -144,7 +147,7 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
         Controlador c = new Controlador();
         try {
-            UserDto u = c.login(jtxtContra.getText(), jtxtUsuario.getText());
+            UserDto u = new ApiService().getUserService().getUserId(2);//c.login(jtxtContra.getText(), jtxtUsuario.getText());
             if (u != null) {
                 Menu m = new Menu(u);
                 m.setVisible(true);
