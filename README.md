@@ -1,7 +1,3 @@
-# Java-Desktop
-## _Aplicación Java Desktop que conecta con la APIREST de Django_
-
-
 # Java-Desktop - Introduccion
 El Presente Proyecto open-source permite firmar un documento PDF, mediante la solicitud de la firma manuscrita de una o varias personas.
 | Requerimientos | Descripcion  |
@@ -16,44 +12,22 @@ El Presente Proyecto open-source permite firmar un documento PDF, mediante la so
 
 Se utilizadon las siguientes librerias para el desarrollo de la API:
 
-- [ItexPDF](https://itextpdf.com/es) - Lectura de PDF
-- [Gson](https://github.com/google/gson) - Mapeo de Json a Objetos
+- [Java-AppCore](https://github.com/Arquitectura-de-Software-UFPS-2022-I/Java-AppCore) - Libreria Para conectar con API Django
 
 ## Instalación
 
 Requiere [Java 8](https://www.java.com/es/download/ie_manual.jsp) para ejecutar.
 
-Archivo de configuración [parametros.properties](https://github.com/Arquitectura-de-Software-UFPS-2022-I/Java-AppCore/blob/main/src/resources/parametros.properties).
-
-```properties
-BASE = http://52.240.59.172:8000
-```
-
-## Modelos
-
-Dentro del paquete models.
-
-| DTO | Descripción |
-| ------ | ------ |
-| FileDto | Modelo generico para almacenar la información de los archivos que estásn subidos |
-| FirmaDto | Modelo que retorna la api de validar la firma, para verificar su autenticidad |
-| SignatureRequestDto | Solicitudes para firmar documentos |
-| SignatureRequestUserDto | Solicitudes de usuarios para firmar documento asignado |
-| UserDto | Modelo de cuentas de usuarios |
-
-## Servicios
-
-Dentro del paquete services.impl
-
-| Service | Descripción |
-| ------ | ------ |
-| ApiService | Servicio centralizado para obtener los subservicios ofrecidos por la api para administrar los DTO |
 
 ## Autor(es)
 
 **Omar Ramón Montes - Desarrollador**
 
 -   <https://github.com/1151704>
+
+**Leonel Carrillo Contreras - Desarrollador**
+
+-   <https://github.com/Coniitan>
 
 ## Institución Académica
 
@@ -63,4 +37,4 @@ Dentro del paquete services.impl
 [Universidad Francisco de Paula Santander]: https://ww2.ufps.edu.co/
 
 ## Licencia
-El código fuente se publica bajo la [MIT License](https://github.com/Arquitectura-de-Software-UFPS-2022-I/Java-AppCore/blob/main/LICENSE).
+El código fuente se publica bajo la [MIT License](https://github.com/Arquitectura-de-Software-UFPS-2022-I/Java-Desktop/blob/main/LICENSE).
