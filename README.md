@@ -25,7 +25,7 @@ Requiere [Java 8](https://www.java.com/es/download/ie_manual.jsp) para ejecutar.
 
 -   <https://github.com/1151704>
 
-**Leonel Carrillo Contreras - Desarrollador**
+**Jose Anibal Pineda Peña - Desarrollador**
 
 -   <https://github.com/Coniitan>
 
